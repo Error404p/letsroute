@@ -6,11 +6,13 @@ import {
     Coins,
     Zap,
     LogOut,
+    Sparkles,
 } from "lucide-react";
 
 const navItems = [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { label: "API Keys", href: "/api-keys", icon: Key },
+    { label: "Playground", href: "/playground", icon: Sparkles },
     { label: "Credits", href: "/credits", icon: Coins },
 ];
 
