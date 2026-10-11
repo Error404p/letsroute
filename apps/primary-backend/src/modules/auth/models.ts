@@ -25,7 +25,7 @@ export namespace AuthModel {
         password: t.String()
     })
 
-    export type signupSchema = typeof signinSchema.static
+    export type signupSchema = typeof signupSchema.static
 
     export const signupResponseSchema = t.Object({
         id: t.String(),
