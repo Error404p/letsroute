@@ -47,9 +47,9 @@ export const app = new Elysia({ prefix: "api-keys" })
             200: ApiKeyModel.getApiKeysResponseSchema
         }
     })
-    .put("/", ({ body, userId, status }) => {
+    .put("/", async ({ body, userId, status }) => {
         try {
-            ApiKeyService.updateApiKeyDisabled(Number(body.id), Number(userId), body.disabled);
+             await ApiKeyService.updateApiKeyDisabled(Number(body.id), Number(userId), body.disabled);
             return {
                 message: "Updated api key successfully"
             }
