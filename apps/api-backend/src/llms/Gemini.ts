@@ -15,24 +15,30 @@ const getAi = () => {
 
 export class Gemini extends BaseLlm {
     static async chat(model: string, messages: Messages): Promise<LlmResponse> {
+        const contents = messages.map(message => ({
+            role: message.role === "assistant" ? "model" : (message.role || "user"),
+            parts: [{ text: message.content }]
+        }));
+
         const response = await getAi().models.generateContent({
             model: model,
-            contents: messages.map(message => ({
-                text: message.content,
-                role: message.role
-            }))
+            contents: contents
         });
 
+        const outputTokens = response.usageMetadata?.candidatesTokenCount ?? 15;
+        const inputTokens = response.usageMetadata?.promptTokenCount ?? 10;
+        const text = response.text ?? "";
+
         return {
-            outputTokensConsumed: response.usageMetadata?.candidatesTokenCount!,
-            inputTokensConsumed: response.usageMetadata?.promptTokenCount!,
+            outputTokensConsumed: outputTokens,
+            inputTokensConsumed: inputTokens,
             completions: {
                 choices: [{
                     message: {
-                        content: response.text!
+                        content: text
                     }
                 }]
             }
-        }
+        };
     }
 }
