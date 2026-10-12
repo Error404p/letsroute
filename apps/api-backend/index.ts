@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { prisma } from "@repo/db";
+import { prisma } from "repo/db";
 
 const app = new Elysia();
 
